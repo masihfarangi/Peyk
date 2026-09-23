@@ -1,0 +1,25 @@
+/*
+ * Peyk design tokens.
+ * Mirrors tailwind.config.js so non-Tailwind surfaces (Leaflet internals,
+ * the pre-React splash in index.html) can use the same values.
+ */
+:root {
+  --peyk-ink: #000000;
+  --peyk-paper: #ffffff;
+  --peyk-mist: #f2f2f2;
+  --peyk-line: #e3e3e3;
+  --peyk-slate: #6b6b6b;
+  --peyk-ash: #9a9a9a;
+  --peyk-brand: #cb2027;
+  --peyk-brand-active: #a81a1f;
+
+  --peyk-stroke: 1.75;
+  --peyk-radius-sheet: 28px;
+  --peyk-radius-card: 20px;
+
+  --peyk-sheet-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Safe areas for notched phones and Android gesture bars. */
+  --peyk-safe-top: env(safe-area-inset-top, 0px);
+  --peyk-safe-bottom: env(safe-area-inset-bottom, 0px);
+}

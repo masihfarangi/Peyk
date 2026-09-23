@@ -1,0 +1,132 @@
+@import './theme/tokens.css';
+@import 'leaflet/dist/leaflet.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    height: 100%;
+  }
+
+  body {
+    height: 100%;
+    margin: 0;
+    background: var(--peyk-mist);
+    color: var(--peyk-ink);
+    font-synthesis-weight: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    /* The app owns scrolling; the page itself never bounces. */
+    overscroll-behavior: none;
+  }
+
+  #root {
+    height: 100%;
+    /* Accounts for mobile browser chrome that grows and shrinks on scroll. */
+    height: 100dvh;
+  }
+
+  /* Touch surfaces should not flash blue on Android Chrome. */
+  button,
+  [role='button'] {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--peyk-brand);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
+  }
+}
+
+@layer components {
+  /* The one piece of app chrome that is not Tailwind: the phone frame used on
+     desktop so the mobile layout stays centred instead of stretching. */
+  .peyk-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background: var(--peyk-paper);
+    overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .peyk-stage {
+      width: min(430px, 100%);
+      height: min(920px, 100%);
+      border-radius: 36px;
+      border: 1px solid var(--peyk-line);
+      box-shadow: 0 30px 80px -40px rgba(0, 0, 0, 0.45);
+    }
+
+    .peyk-frame {
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      height: 100%;
+      background: var(--peyk-mist);
+    }
+  }
+}
+
+/* --- Leaflet overrides: strip the default look so the map reads as ours. --- */
+.leaflet-container {
+  background: var(--peyk-mist);
+  font: inherit;
+  outline: none;
+}
+
+.leaflet-control-attribution {
+  font-size: 10px;
+  background: rgba(255, 255, 255, 0.82);
+  color: var(--peyk-slate);
+  padding: 2px 6px;
+  border-radius: 999px 0 0 0;
+}
+
+.leaflet-control-attribution a {
+  color: var(--peyk-slate);
+}
+
+/* Markers are plain SVG in a transparent div. */
+.peyk-marker {
+  background: transparent;
+  border: none;
+}
+
+/* --- Finding-a-courier animation: a bike riding back and forth. --- */
+@keyframes peyk-ride {
+  0% {
+    left: 0;
+    transform: translateY(-50%) scaleX(1);
+  }
+  48% {
+    transform: translateY(-62%) scaleX(1);
+  }
+  50% {
+    left: calc(100% - 40px);
+    transform: translateY(-50%) scaleX(-1);
+  }
+  98% {
+    transform: translateY(-62%) scaleX(-1);
+  }
+  100% {
+    left: 0;
+    transform: translateY(-50%) scaleX(1);
+  }
+}
